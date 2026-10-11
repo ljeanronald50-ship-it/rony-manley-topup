@@ -118,7 +118,7 @@ form.addEventListener('submit', async (e) => {
   wa.href = 'https://wa.me/55531176?text=' + encodeURIComponent(msg);
   wa.textContent = '📲 VOYE KÒMAND ' + ref + ' SOU WHATSAPP';
   wa.scrollIntoView({ behavior: 'smooth', block: 'center' });
-});<script>
+});<script></section><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script></body></html>
 const form=document.getElementById('orderForm'), result=document.getElementById('result'), wa=document.getElementById('wa');
 form.addEventListener('submit',e=>{e.preventDefault();const n=Number(localStorage.getItem('ronyOrderNum')||0)+1;localStorage.setItem('ronyOrderNum',n);const ref='RONY-'+String(n).padStart(4,'0');const game=document.getElementById('game').value;const [pack,price]=document.getElementById('pack').value.split('|');const id=document.getElementById('playerId').value.trim();const name=document.getElementById('customer').value.trim()||'Pa bay non';const payment=document.getElementById('payment').value;const msg=`Bonjou, mwen vle valide yon kòmand TOP UP.%0A*Nimewo:* ${ref}%0A*Non:* ${encodeURIComponent(name)}%0A*Jwèt:* ${encodeURIComponent(game)}%0A*Pakè:* ${encodeURIComponent(pack)}%0A*Pri:* ${price} HTG%0A*ID jwè:* ${encodeURIComponent(id)}%0A*Peman:* ${encodeURIComponent(payment)}%0A*Estati:* An atant verifikasyon peman`;result.style.display='block';result.innerHTML=`<strong>Kòmand ou:</strong> ${ref}<br><strong>Jwèt:</strong> ${game}<br><strong>Pakè:</strong> ${pack}<br><strong>Pri:</strong> ${Number(price).toLocaleString('en-US')} HTG<br><strong>Estati:</strong> An atant verifikasyon peman`;wa.href='https://wa.me/55531176?text='+msg;wa.textContent='📲 VOYE KÒMAND '+ref+' SOU WHATSAPP';wa.scrollIntoView({behavior:'smooth',block:'center'});});
 </script><section style="background:#111;color:white;padding:20px;margin:15px;border:2px solid gold;border-radius:12px;text-align:center;">
@@ -128,4 +128,4 @@ form.addEventListener('submit',e=>{e.preventDefault();const n=Number(localStorag
   <p>1. Voye montan kòmann ou an sou NatCash.</p>
   <p>2. Voye prèv peman an sou WhatsApp.</p>
   <p>3. Tann ajan an verifye peman an anvan livrezon.</p>
-</section><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script></body></html>
+
