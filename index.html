@@ -50,7 +50,75 @@ footer{text-align:center;color:#92929e;padding:20px;font-size:12px}
 </section>
 <section class="card"><h2>📌 Enfòmasyon</h2><p class="small">Apre ou fin voye kòmand lan, kontakte administratè a sou WhatsApp pou jwenn enstriksyon peman. Pa voye PIN, modpas, oswa kòd sekirite ou. Livrezon fèt apre verifikasyon peman an.</p></section>
 </main><footer>© RONY & MANLEY TOP UP AGENT</footer>
-<script>
+const SUPABASE_URL =https://lnbnrlwwudurlgeaiuxg.supabase.co/rest/v1/;
+const SUPABASE_KEY = sb_publishable_B9ONTcU5ta4V-xd-rRWmmw_Djx5YOgY;
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+const form = document.getElementById('orderForm');
+const result = document.getElementById('result');
+const wa = document.getElementById('wa');
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const game = document.getElementById('game').value;
+  const [pack, price] = document.getElementById('pack').value.split('|');
+  const playerId = document.getElementById('playerId').value.trim();
+  const name = document.getElementById('customer').value.trim() || 'Pa bay non';
+  const payment = document.getElementById('payment').value;
+
+  const ref = 'RONY-' + Date.now();
+
+  result.style.display = 'block';
+  result.textContent = 'Tanpri tann, n ap anrejistre kòmand ou...';
+
+  const { error } = await supabaseClient
+    .from('commandes')
+    .insert({
+      nom_client: name,
+      jeu: game,
+      produit: pack,
+      montant: Number(price),
+      player_id: playerId,
+      payment_method: payment,
+      order_ref: ref,
+      statut: 'en_attente'
+    });
+
+  if (error) {
+    result.textContent = 'Nou pa rive anrejistre kòmand lan. Tanpri eseye ankò.';
+    console.error(error);
+    return;
+  }
+
+  const msg = [
+    'Bonjou, mwen fè yon kòmand TOP UP.',
+    'Nimewo: ' + ref,
+    'Non: ' + name,
+    'Jwèt: ' + game,
+    'Pakè: ' + pack,
+    'Pri: ' + price + ' HTG',
+    'ID jwè: ' + playerId,
+    'Peman: ' + payment,
+    'Estati: An atant verifikasyon peman'
+  ].join('\n');
+
+  result.innerHTML =
+    '<strong>Kòmand anrejistre!</strong><br>' +
+    'Nimewo: ' + ref + '<br>' +
+    'Jwèt: ' + game + '<br>' +
+    'Pakè: ' + pack + '<br>' +
+    'Pri: ' + Number(price).toLocaleString('en-US') +
+    ' HTG<br>Estati: An atant verifikasyon peman';
+
+  wa.href = 'https://wa.me/55531176?text=' + encodeURIComponent(msg);
+  wa.textContent = '📲 VOYE KÒMAND ' + ref + ' SOU WHATSAPP';
+  wa.scrollIntoView({ behavior: 'smooth', block: 'center' });
+});<script>
 const form=document.getElementById('orderForm'), result=document.getElementById('result'), wa=document.getElementById('wa');
 form.addEventListener('submit',e=>{e.preventDefault();const n=Number(localStorage.getItem('ronyOrderNum')||0)+1;localStorage.setItem('ronyOrderNum',n);const ref='RONY-'+String(n).padStart(4,'0');const game=document.getElementById('game').value;const [pack,price]=document.getElementById('pack').value.split('|');const id=document.getElementById('playerId').value.trim();const name=document.getElementById('customer').value.trim()||'Pa bay non';const payment=document.getElementById('payment').value;const msg=`Bonjou, mwen vle valide yon kòmand TOP UP.%0A*Nimewo:* ${ref}%0A*Non:* ${encodeURIComponent(name)}%0A*Jwèt:* ${encodeURIComponent(game)}%0A*Pakè:* ${encodeURIComponent(pack)}%0A*Pri:* ${price} HTG%0A*ID jwè:* ${encodeURIComponent(id)}%0A*Peman:* ${encodeURIComponent(payment)}%0A*Estati:* An atant verifikasyon peman`;result.style.display='block';result.innerHTML=`<strong>Kòmand ou:</strong> ${ref}<br><strong>Jwèt:</strong> ${game}<br><strong>Pakè:</strong> ${pack}<br><strong>Pri:</strong> ${Number(price).toLocaleString('en-US')} HTG<br><strong>Estati:</strong> An atant verifikasyon peman`;wa.href='https://wa.me/55531176?text='+msg;wa.textContent='📲 VOYE KÒMAND '+ref+' SOU WHATSAPP';wa.scrollIntoView({behavior:'smooth',block:'center'});});
 </script><section style="background:#111;color:white;padding:20px;margin:15px;border:2px solid gold;border-radius:12px;text-align:center;">
